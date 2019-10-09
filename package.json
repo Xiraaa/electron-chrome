@@ -16,9 +16,9 @@
   },
   "devDependencies": {
     "deferred": "^0.7.11",
-    "electron": "^4.0.4",
-    "electron-builder": "^20.43.0",
-    "electron-packager": "12.2.0",
-    "electron-winstaller": "^2.7.0"
+    "electron": "^6.0.10",
+    "electron-builder": "^21.2.0",
+    "electron-packager": "git+https://github.com/electron/electron-packager.git#windows-arm64",
+    "electron-winstaller": "^4.0.0"
   }
 }

@@ -1,13 +1,13 @@
-const {screen} = require('electron');
+const {electron} = require('./electron-remote.js')
+const {app} = electron;
 
 function getInfo(cb) {
-  var displays = screen.getAllDisplays();
-
+  var displays = electron.screen.getAllDisplays();
   var ret = displays.map(function(s) {
     return {
       id: s.id,
       name: 'display-' + s.id,
-      isPrimary: screen.getPrimaryDisplay().id == s.id,
+      isPrimary: electron.screen.getPrimaryDisplay().id == s.id,
       isInternal: s.bounds.x == 0 && s.bounds.y == 0,
       isEnabled: true,
       dpiX: 160, // make some shit up
@@ -18,7 +18,6 @@ function getInfo(cb) {
       modes: [],
     }
   })
-
   cb(ret);
 }
 

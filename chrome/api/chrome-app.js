@@ -3,7 +3,7 @@ const os = require('os');
 const {electron, remote} = require('./electron-remote.js')
 const {BrowserWindow, app, protocol, nativeImage} = electron;
 const {throttleTimeout} = require('./util.js');
-const {screen} = require('electron');
+
 const {
   makeEvent,
   safeRegister,
@@ -85,14 +85,19 @@ exports.window.create = function(options, cb) {
     windowBounds.y = windowSettings.position[1];
 
     // santize
-    var display = screen.getDisplayMatching(windowBounds);
-    var {workArea} = display;
-    if (windowBounds.x < workArea.x
-      || windowBounds.y < workArea.y
-      || windowBounds.x + windowBounds.width > workArea.x + workArea.width
-      || windowBounds.y + windowBounds.height > workArea.y + workArea.height) {
-      windowBounds = {};
-    }
+    // app.on('ready', () => {
+    //   const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize
+    //   win = new BrowserWindow({ width, height })
+    //   win.loadURL('https://github.com')
+    // })
+    // var display = screen.getDisplayMatching(windowBounds);
+    // var {workArea} = display;
+    // if (windowBounds.x < workArea.x
+    //   || windowBounds.y < workArea.y
+    //   || windowBounds.x + windowBounds.width > workArea.x + workArea.width
+    //   || windowBounds.y + windowBounds.height > workArea.y + workArea.height) {
+    //   windowBounds = {};
+    // }
   }
 
   var frameless = options.frame && options.frame.type == 'none';
@@ -116,6 +121,7 @@ exports.window.create = function(options, cb) {
   opts.webPreferences = {
     plugins: true,
     preload: preloadPath,
+    webSecurity: false
   }
 
   w = new BrowserWindow(opts);

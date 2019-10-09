@@ -221,6 +221,7 @@ var identity = {
         title: 'Google Login',
         resizable: false,
         alwaysOnTop: true,
+        webPreferences: { webSecurity: false }
       };
 
       const w = new BrowserWindow(opts);

@@ -258,6 +258,9 @@ function makeRuntimeWindow() {
 
   console.log('starting runtime');
   chromeRuntimeWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true
+    },
     show: false,
   });
   chromeRuntimeWindow.on('close', function() {
@@ -282,7 +285,9 @@ function calculateId() {
   return require('./chrome-app-id.js').calculateId(global.chromeManifest.key);
 }
 
-protocol.registerStandardSchemes(['chrome-extension']);
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'chrome-extension', privileges: { standard: true, bypassCSP: true} }
+])
 
 function registerProtocol() {
   return new Promise((resolve, reject) => {
@@ -381,6 +386,12 @@ app.on('ready', function() {
 
 global.isReloading = false;
 global.wantsActivate = true;
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+   // On certificate error we disable default behaviour (stop loading the page)
+   // and we then say "it is all fine - true" to the callback
+   event.preventDefault();
+   callback(true);
+});
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   console.log('window-all-closed');
