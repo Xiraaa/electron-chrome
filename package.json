@@ -18,7 +18,7 @@
     "deferred": "^0.7.11",
     "electron": "^6.0.10",
     "electron-builder": "^21.2.0",
-    "electron-packager": "git+https://github.com/electron/electron-packager.git#windows-arm64",
+    "electron-packager": "git+https://github.com/electron/electron-packager.git",
     "electron-winstaller": "^4.0.0"
   }
 }

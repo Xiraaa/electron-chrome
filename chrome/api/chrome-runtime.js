@@ -162,6 +162,12 @@ var allowImmediateUpdateCheck = true;
 chrome.alarms = require('./chrome-alarms.js');
 chrome.idle = require('./chrome-idle.js');
 
+chrome.syncFileSystem = {
+}
+
+chrome.fileSystem = {
+}
+
 chrome.runtime = {
   id: appId,
   onInstalled: makeEvent(),
@@ -232,7 +238,13 @@ chrome.runtime = {
       arch: archMap[os.arch()],
       nacl_arch: archMap[os.arch()],
     })
-  }
+  },
+  // getPackageDirectoryEntry: function(cb) {
+  //   window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+  //   window.requestFileSystem(window.TEMPORARY, 5*1024*1024 /*5MB*/, function(fs){
+  //     cb(fs.root)
+  //   });
+  // }
 };
 
 chrome.app = require('./chrome-app.js');
